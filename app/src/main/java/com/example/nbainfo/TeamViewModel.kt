@@ -39,4 +39,13 @@ class TeamViewModel : ViewModel() {
     fun getTeamById(id: Int) : Team? {
         return teams.value?.find { it.id == id }
     }
+
+    fun sortTeamsBy(criteria: SortCriteria) {
+        val sortedTeams = when (criteria) {
+            SortCriteria.Name -> teams.value?.sortedBy { it.full_name }
+            SortCriteria.City -> teams.value?.sortedBy { it.city }
+            SortCriteria.Conference -> teams.value?.sortedBy { it.conference }
+        }
+        _teams.value = sortedTeams
+    }
 }

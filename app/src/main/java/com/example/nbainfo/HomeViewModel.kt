@@ -8,8 +8,8 @@ class HomeViewModel: ViewModel() {
     private val _sort = mutableStateOf("Name")
     val sortText: State<String> = _sort
 
-    fun setSort(sort: String) {
-        _sort.value = sort
+    fun setSort(sort: SortCriteria) {
+        _sort.value = sort.toString()
     }
 
 }
