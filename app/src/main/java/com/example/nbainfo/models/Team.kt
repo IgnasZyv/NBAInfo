@@ -1,4 +1,4 @@
-package com.example.nbainfo
+package com.example.nbainfo.models
 
 data class Team(
     val id: Int,

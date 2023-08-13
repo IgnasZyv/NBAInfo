@@ -1,9 +1,13 @@
-package com.example.nbainfo
+package com.example.nbainfo.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.nbainfo.models.SortCriteria
+import com.example.nbainfo.models.Game
+import com.example.nbainfo.models.Team
+import com.example.nbainfo.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class TeamViewModel : ViewModel() {

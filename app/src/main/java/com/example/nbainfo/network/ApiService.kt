@@ -1,5 +1,7 @@
-package com.example.nbainfo
+package com.example.nbainfo.network
 
+import com.example.nbainfo.models.GameResponse
+import com.example.nbainfo.models.TeamResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

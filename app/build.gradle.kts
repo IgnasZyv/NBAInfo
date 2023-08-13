@@ -67,10 +67,15 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    // Api calls with Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    // Api logging with OkHttp
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    // LiveData support for Compose
     implementation ("androidx.compose.runtime:runtime-livedata:1.5.0")
+    // Navigation support for Compose
+    implementation ("androidx.navigation:navigation-compose:2.7.0")
 
 }

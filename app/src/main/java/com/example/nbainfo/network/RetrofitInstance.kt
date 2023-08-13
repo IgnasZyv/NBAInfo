@@ -1,8 +1,7 @@
-package com.example.nbainfo
+package com.example.nbainfo.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

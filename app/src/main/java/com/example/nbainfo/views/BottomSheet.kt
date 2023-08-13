@@ -1,7 +1,5 @@
-package com.example.nbainfo
+package com.example.nbainfo.views
 
-import android.graphics.drawable.Icon
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +25,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.nbainfo.viewmodels.TeamViewModel
+import com.example.nbainfo.models.Team
 import kotlinx.coroutines.runBlocking
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +59,7 @@ fun BottomSheet(
                             contentDescription = "Back",
                             modifier = Modifier.padding(end = 10.dp),
                         )
-                        Text(text = "Back")
+                        Text(text = "Home")
                     }
                 }
 
