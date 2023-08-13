@@ -12,5 +12,4 @@ class HomeViewModel: ViewModel() {
     fun setSort(sort: SortCriteria) {
         _sortText.value = sort.toString()
     }
-
 }

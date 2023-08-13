@@ -104,12 +104,21 @@ fun GameBottomSheetContent(selectedTeam: Team, teamViewModel: TeamViewModel) {
         ) {
             Text(
                 text = "Home \n Team",
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleMedium
 
             )
-            Text(text = "Home \n Score")
-            Text(text = "Visitor \n Team")
-            Text(text = "Visitor \n Score")
+            Text(
+                text = "Home \n Score",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = "Visitor \n Team",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = "Visitor \n Score",
+                style = MaterialTheme.typography.titleMedium
+            )
 
         }
         HorizontalDivider(

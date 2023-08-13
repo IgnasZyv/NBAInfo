@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -39,8 +41,6 @@ import com.example.nbainfo.models.SortCriteria
 import com.example.nbainfo.models.Team
 import com.example.nbainfo.viewmodels.HomeViewModel
 import com.example.nbainfo.viewmodels.TeamViewModel
-
-
 
 @Composable
 fun MainContent(homeViewModel: HomeViewModel, teamViewModel: TeamViewModel) {
@@ -170,7 +170,7 @@ fun Teams(data: List<Team>, onTeamClick: (Team) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 10.dp, bottom = 0.dp, start = 15.dp, end = 15.dp )
+            .padding(top = 10.dp, bottom = 0.dp, start = 15.dp, end = 15.dp)
     ) {
         items(data) { team ->
             // List all the teams by passing each team to the ListTeam composable
@@ -213,7 +213,13 @@ fun ListTeam(team: Team, onTeamClick: (Team) -> Unit) {
                 )
             }
             Text(text = team.city)
-            Text(text = team.conference)
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = team.conference)
+                Image(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "Arrow")
+            }
+
         }
     }
 

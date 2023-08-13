@@ -82,6 +82,5 @@ fun NavigationBar(navController: NavController) {
                 Text(text = "Players")
             }
         }
-
     }
 }

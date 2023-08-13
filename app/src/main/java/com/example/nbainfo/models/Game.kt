@@ -1,5 +1,8 @@
 package com.example.nbainfo.models
 
+import com.example.nbainfo.models.Meta
+import com.example.nbainfo.models.Team
+
 data class Game(
     val id: Int,
     val date: String,
