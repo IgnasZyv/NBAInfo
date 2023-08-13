@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                                     MainContent(homeViewModel = homeViewModel, teamViewModel = teamViewModel)
                                 }
                                 composable("players") {
-                                    PlayerMainContent(playerViewModel = playerViewModel)
+                                    PlayerMainContent(playerViewModel = playerViewModel, teamViewModel = teamViewModel)
                                 }
                             }
                         }

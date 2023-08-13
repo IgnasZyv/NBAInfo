@@ -86,7 +86,6 @@ fun BottomSheet(
     }
 }
 
-
 @Composable
 fun GameBottomSheetContent(selectedTeam: Team, teamViewModel: TeamViewModel) {
     // get the list of games for the selected team
