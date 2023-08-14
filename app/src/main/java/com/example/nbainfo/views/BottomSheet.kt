@@ -37,6 +37,7 @@ fun BottomSheet(
     teamViewModel: TeamViewModel,
     setBottomSheetOpen: () -> Unit,
 ) {
+    // get the team from the view model
     val team = selectedTeamId.let { teamViewModel.getTeamById(it) }
 
     if (isOpen) {
@@ -62,7 +63,6 @@ fun BottomSheet(
                         Text(text = "Home")
                     }
                 }
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -77,7 +77,7 @@ fun BottomSheet(
                 }
             }
         ) {
-
+            // if the team is found then show the content
             if (team != null) {
                 GameBottomSheetContent(selectedTeam = team, teamViewModel = teamViewModel)
             }
@@ -124,8 +124,9 @@ fun GameBottomSheetContent(selectedTeam: Team, teamViewModel: TeamViewModel) {
             color = MaterialTheme.colorScheme.primary
         )
     }
-
+    // show the list of games
     LazyColumn(content = {
+        // for each game in the list of games
         items(games) { game ->
             Row(
                 modifier = Modifier
@@ -135,6 +136,7 @@ fun GameBottomSheetContent(selectedTeam: Team, teamViewModel: TeamViewModel) {
                 verticalAlignment = Alignment.CenterVertically
             )
              {
+                 // split the team names into two strings for better display
                  val homeTeamFullName: List<String> = game.home_team.full_name.split(" ")
                  val visitorTeamFullName: List<String> = game.visitor_team.full_name.split(" ")
                  Column(

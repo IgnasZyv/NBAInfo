@@ -11,6 +11,7 @@ import com.example.nbainfo.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class TeamViewModel : ViewModel() {
+    // LiveData for the list of teams
     private val _teams = MutableLiveData<List<Team>>()
     var teams : MutableLiveData<List<Team>> = _teams
 
@@ -22,20 +23,22 @@ class TeamViewModel : ViewModel() {
         // Make the api call in a coroutine
         viewModelScope.launch {
             try {
+                // get the list of teams from the api
                 val response = RetrofitInstance.apiService.getTeams()
                 _teams.value = response.data
             } catch (e: Exception) {
-                Log.d("TeamViewModel", "fetchTeams: ${e.message}")
+                Log.e("TeamViewModel", "fetchTeams: ${e.message}")
             }
         }
     }
 
     suspend fun fetchGamesForTeam(teamId: Int) : List<Game> {
         return try {
+            // get the list of games for the team from the api using the teamId
             val response = RetrofitInstance.apiService.getGamesForTeam(teamId)
             response.data
         } catch (e: Exception) {
-            Log.d("TeamViewModel", "fetchGamesForTeam: ${e.message}")
+            Log.e("TeamViewModel", "fetchGamesForTeam: ${e.message}")
             emptyList()
         }
     }
@@ -45,11 +48,13 @@ class TeamViewModel : ViewModel() {
     }
 
     fun sortTeamsBy(criteria: SortCriteria) {
+        // sort the teams based on the selected criteria
         val sortedTeams = when (criteria) {
             SortCriteria.Name -> teams.value?.sortedBy { it.full_name }
             SortCriteria.City -> teams.value?.sortedBy { it.city }
             SortCriteria.Conference -> teams.value?.sortedBy { it.conference }
         }
+        // update the teams LiveData
         _teams.value = sortedTeams
     }
 }

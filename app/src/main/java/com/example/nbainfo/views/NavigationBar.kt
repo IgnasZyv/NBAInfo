@@ -1,7 +1,5 @@
 package com.example.nbainfo.views
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,9 +24,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun NavigationBar(navController: NavController) {
+    // keep track of the current screen
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    // get the current screen from the back stack entry
     val currentScreen = currentBackStackEntry?.destination?.route
-    Log.d("currentScreen", currentScreen.toString())
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,12 +42,15 @@ fun NavigationBar(navController: NavController) {
     ) {
         Button(
             onClick = {
+                // navigate to the home screen if not already there
                 if (currentScreen != "home") {
                     navController.navigate("home")
                 }
                       },
+            // change the colors based on the current screen
             colors = ButtonDefaults.buttonColors(
                 containerColor = if (currentScreen == "home") MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
+                contentColor = if (currentScreen == "home") MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onPrimary,
             )
         ) {
             Row(
@@ -72,6 +72,7 @@ fun NavigationBar(navController: NavController) {
                       },
             colors = ButtonDefaults.buttonColors(
                 containerColor = if (currentScreen == "players") MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
+                contentColor = if (currentScreen == "players") MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onPrimary,
             )
         ) {
             Row(

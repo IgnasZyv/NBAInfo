@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -52,6 +53,7 @@ fun MainContent(homeViewModel: HomeViewModel, teamViewModel: TeamViewModel) {
     val (isBottomSheetOpen, setBottomSheetOpen) = remember { mutableStateOf(false) }
 
     if (selectedTeam != null) {
+        // pass the selected team to the BottomSheet composable and set the bottom sheet to open
         BottomSheet(
             isOpen = isBottomSheetOpen,
             selectedTeamId = selectedTeam.id,
@@ -62,10 +64,11 @@ fun MainContent(homeViewModel: HomeViewModel, teamViewModel: TeamViewModel) {
         modifier = Modifier
             .fillMaxSize()
     ) {
+        // structure the content of the home page
         Header(homeViewModel = homeViewModel, teamViewModel = teamViewModel)
         ListTitles()
-        // pass the list of teams to the Teams composable and set the selected team when the user clicks on a team
-        Teams(data = teams) {clickedTeam ->
+        // pass the list of teams to the Teams composable and set the selected team when the user clicks on a team with a callback
+        ListTeams(data = teams) { clickedTeam ->
             setSelectedTeam(clickedTeam)
             setBottomSheetOpen(true)
         }
@@ -100,7 +103,8 @@ fun Header(homeViewModel: HomeViewModel, teamViewModel: TeamViewModel) {
                     painter = painterResource(id = R.drawable.sort_button_white_foreground),
                     contentDescription = "SortButton",
                     modifier = Modifier
-                        .size(23.dp)
+                        .size(23.dp),
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary)
                 )
 
                 Text(
@@ -112,7 +116,7 @@ fun Header(homeViewModel: HomeViewModel, teamViewModel: TeamViewModel) {
             }
         }
     }
-
+    // get the context of the app for toast
     val context = LocalContext.current
 
     // show the sort dialog when the state is true
@@ -165,7 +169,8 @@ fun ListTitles() {
 }
 
 @Composable
-fun Teams(data: List<Team>, onTeamClick: (Team) -> Unit) {
+fun ListTeams(data: List<Team>, onTeamClick: (Team) -> Unit) {
+    // list all the teams in a LazyColumn
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -174,6 +179,7 @@ fun Teams(data: List<Team>, onTeamClick: (Team) -> Unit) {
         items(data) { team ->
             // List all the teams by passing each team to the ListTeam composable
             Column {
+                // pass the team and the onClick callback to the ListTeam composable
                 ListTeam(team = team, onTeamClick = onTeamClick)
             }
         }

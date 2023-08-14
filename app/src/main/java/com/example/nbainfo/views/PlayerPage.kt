@@ -49,6 +49,7 @@ import com.example.nbainfo.viewmodels.TeamViewModel
     val (isBottomSheetOpen, setBottomSheetOpen) = remember { mutableStateOf(false) }
 
     if (selectedTeam != null) {
+        // if the selected team is not null, show the bottom sheet
         BottomSheet(
             isOpen = isBottomSheetOpen,
             selectedTeamId = selectedTeam.id,
@@ -56,9 +57,11 @@ import com.example.nbainfo.viewmodels.TeamViewModel
         ) { setBottomSheetOpen(false) }
     }
 
+    // player page content structure
     Column {
         Header(playerViewModel = playerViewModel)
         ListPlayerTitles()
+        // list of players with a callback to open the bottom sheet
         ListPlayers(playerViewModel = playerViewModel) { player ->
             setSelectedTeam(player.team)
             setBottomSheetOpen(true)
@@ -68,6 +71,7 @@ import com.example.nbainfo.viewmodels.TeamViewModel
 
 @Composable
 fun Header(playerViewModel: PlayerViewModel) {
+    // state for the search dialog
     var openDialog by remember { mutableStateOf(false) }
 
     Row(
@@ -87,13 +91,13 @@ fun Header(playerViewModel: PlayerViewModel) {
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
-
             )
             Spacer(modifier = Modifier.padding(5.dp))
             Text(text = "Search")
         }
     }
 
+    // if the search dialog is open, show the dialog
     SearchDialog(
         playerViewModel = playerViewModel,
         openDialog = openDialog,
@@ -140,6 +144,7 @@ fun ListPlayers(playerViewModel: PlayerViewModel, onPlayerClick : (Player) -> Un
             verticalAlignment = Alignment.CenterVertically
         ) {
             Switch(
+                // controls the searchActive state which determines which list to show
                 checked = playerViewModel.searchActive.value,
                 onCheckedChange = { playerViewModel.searchActive.value = it }
             )
@@ -147,6 +152,7 @@ fun ListPlayers(playerViewModel: PlayerViewModel, onPlayerClick : (Player) -> Un
             Text("Search")
         }
     }
+    // list the players
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -154,6 +160,7 @@ fun ListPlayers(playerViewModel: PlayerViewModel, onPlayerClick : (Player) -> Un
     ) {
         items(players) { player ->
             Column {
+                // list the player with a callback to open the team details page
                 ListPlayer(player = player, onPlayerClick = onPlayerClick)
             }
         }
@@ -194,7 +201,6 @@ fun ListPlayer(player: Player, onPlayerClick: (Player) -> Unit) {
                 }
                 Image(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "Arrow")
             }
-
         }
     }
 }
@@ -212,6 +218,7 @@ fun SearchDialog(
 
     if (openDialog) {
         AlertDialog(
+            // close if the back button is pressed or the user clicks outside the dialog
             onDismissRequest = { onDismiss() },
         ) {
             Column(
@@ -237,7 +244,7 @@ fun SearchDialog(
                         placeholder = { Text("Search") },
                         onValueChange = { searchText = it },
                         modifier = Modifier.weight(7f),
-                        singleLine = false,
+                        singleLine = true,
                         keyboardActions = KeyboardActions(
                             onDone = {
                                 playerViewModel.searchForPlayers(searchText, selectedSearchCriteria)
@@ -252,6 +259,7 @@ fun SearchDialog(
                             playerViewModel.searchForPlayers(searchText, selectedSearchCriteria)
                             // close the dialog
                             onDismiss()
+                            // reset the search text
                             searchText = ""
                         },
                         modifier = Modifier.weight(2f)
@@ -270,12 +278,14 @@ fun SearchDialog(
 }
 
 @Composable fun SearchRadioButtons(selectedSearchCriteria : SearchCriteria, onCriteriaSelected : (SearchCriteria) -> Unit) {
+    // get the search criteria enum values
     val searchCriteria = SearchCriteria.values()
 
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
+        // list the radio buttons for each search criteria
         searchCriteria.forEach { criteria ->
             Row(
                 modifier = Modifier
@@ -283,6 +293,7 @@ fun SearchDialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
+                    // callback to update the selected search criteria
                     selected = criteria == selectedSearchCriteria,
                     onClick = { onCriteriaSelected(criteria) },
                 )
